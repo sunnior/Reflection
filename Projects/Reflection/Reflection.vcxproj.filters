@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="..\..\Code\Reflection\type.h" />
+    <ClInclude Include="..\..\Code\Reflection\defs.h" />
+    <ClInclude Include="..\..\Code\Reflection\detail\type\type_impl.h">
+      <Filter>detail\type</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Code\Reflection\detail\type\type_data.h">
+      <Filter>detail\type</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Code\Reflection\detail\type\type_name.h">
+      <Filter>detail\type</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Code\Reflection\string_view.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="detail">
+      <UniqueIdentifier>{939273b6-e060-4816-8fb0-e20820822d21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="detail\type">
+      <UniqueIdentifier>{825a6d5d-fa88-43af-a962-607d967e7e24}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
