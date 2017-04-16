@@ -26,3 +26,4 @@ Projects/*/Temp/*
 *.pdb
 *.props
 *.db
+*.opendb

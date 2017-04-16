@@ -2,7 +2,7 @@
 
 struct T1
 {
-
+	size_t m_num;
 };
 
 int main()
