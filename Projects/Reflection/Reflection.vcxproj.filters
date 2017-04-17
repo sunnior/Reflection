@@ -22,4 +22,9 @@
       <UniqueIdentifier>{825a6d5d-fa88-43af-a962-607d967e7e24}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Code\Reflection\detail\type\type_register.cpp">
+      <Filter>detail\type</Filter>
+    </ClCompile>
+  </ItemGroup>
 </Project>

@@ -8,4 +8,5 @@ struct T1
 int main()
 {
 	Reflection::Type type = Reflection::Type::get<T1>();
+	Reflection::Type type2 = Reflection::Type::get<T1>();
 }

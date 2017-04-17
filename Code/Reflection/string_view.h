@@ -69,6 +69,15 @@ namespace Reflection
 	{
 		return m_data + m_size;
 	}
+
+	template<typename CharT, typename Traits>
+	REFL_INLINE REFL_CXX14_CONSTEXPR bool operator<(const BasicStringView<CharT, Traits>& lhs, const BasicStringView<CharT, Traits>& rhs) REFL_NOEXCEPT
+	{
+		REFL_TODO;//a simple implementation.
+		return lhs.begin() < rhs.begin();
+	}
+
+
 }
 
 #endif

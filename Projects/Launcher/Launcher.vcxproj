@@ -116,6 +116,11 @@
   <ItemGroup>
     <ClCompile Include="..\..\Code\Launcher\main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Reflection\Reflection.vcxproj">
+      <Project>{f0c9634a-7d44-499e-bde5-d970501ea6dc}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

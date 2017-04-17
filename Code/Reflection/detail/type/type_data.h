@@ -20,13 +20,23 @@ namespace Reflection
 	{
 		struct TypeData
 		{
+			using type_id = uint16_t;
 			std::string m_Name;
 			StringView  m_TypeName;
 			size_t		m_SizeOf;
+
+			type_id m_TypeId;
+			static const type_id s_InvalidTypeId = 0;
 		};
 
+		REFL_INLINE const TypeData get_invalid_type_data() REFL_NOEXCEPT
+		{
+			static const TypeData instance = { std::string(""), StringView(), 0 };
+			return instance;
+		}
+
 		template<typename T>
-		const TypeData& getTypeData() REFL_NOEXCEPT
+		TypeData& getTypeData() REFL_NOEXCEPT
 		{
 			static TypeData instance = TypeData{ getTypeName<T>().to_string(), getTypeName<T>(), get_size_of<T>::value()};
 			return instance;

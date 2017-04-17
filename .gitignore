@@ -27,3 +27,8 @@ Projects/*/Temp/*
 *.props
 *.db
 *.opendb
+*.log
+*.tlog
+*.lastbuildstate
+*.idb
+*.obj
