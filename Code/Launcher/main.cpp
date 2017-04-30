@@ -27,4 +27,8 @@ int main()
 	T2 t2;
 	T1* t2_1 = &t2;
 	Reflection::Type type4 = t2_1->getType();
+	
+	Reflection::Type type5 = Reflection::Type::get_by_name("T2");
+	Reflection::Type type6 = Reflection::Type::get_by_name("T3");
+
 }

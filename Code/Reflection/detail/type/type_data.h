@@ -27,11 +27,13 @@ namespace Reflection
 
 			type_id m_TypeId;
 			static const type_id s_InvalidTypeId = 0;
+
+			REFL_INLINE bool isValid() const REFL_NOEXCEPT { return m_TypeId != s_InvalidTypeId; }
 		};
 
-		REFL_INLINE const TypeData get_invalid_type_data() REFL_NOEXCEPT
+		REFL_INLINE TypeData get_invalid_type_data() REFL_NOEXCEPT
 		{
-			static const TypeData instance = { std::string(""), StringView(), 0 };
+			static TypeData instance = { std::string(""), StringView(), 0 };
 			return instance;
 		}
 
