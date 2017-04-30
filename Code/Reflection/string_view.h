@@ -12,11 +12,13 @@ namespace Reflection
 	public:
 		using size_type = size_t;
 		using value_type = CharT;
+		using traits_type = Traits;
 		using pointer_type = CharT*;
 		using const_pointer = const CharT*;
 		using const_iterator = const_pointer;
 
 		REFL_CONSTEXPR BasicStringView() REFL_NOEXCEPT;
+		REFL_CONSTEXPR BasicStringView(const CharT* str) REFL_NOEXCEPT;
 		REFL_CONSTEXPR BasicStringView(const CharT* str, size_type len) REFL_NOEXCEPT;
 
 		REFL_CONSTEXPR const_iterator begin() const REFL_NOEXCEPT;
@@ -41,6 +43,12 @@ namespace Reflection
 		, m_size(0)
 	{
 	}
+
+	template<typename CharT, typename Traits>
+	REFL_CONSTEXPR BasicStringView<CharT, Traits>::BasicStringView(const CharT* str) REFL_NOEXCEPT
+		: m_data(str)
+		, m_size(str? traits_type::length(str) : 0)
+	{}
 
 	REFL_TODO;//why I need add tyname after class name.
 	template<typename CharT, typename Traits>

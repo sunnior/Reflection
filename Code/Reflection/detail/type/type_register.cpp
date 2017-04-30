@@ -4,6 +4,8 @@
 
 namespace Reflection
 {
+	class Type;
+
 	namespace Detail
 	{
 		std::vector<const TypeData*>& TypeRegisterPrivate::get_type_data_storage()
@@ -52,9 +54,20 @@ namespace Reflection
 			return Type(type_data_container[id]);
 		}
 
+		void TypeRegisterPrivate::register_custom_name(Type& type, StringView name)
+		{
+
+		}
+
 		Type TypeRegister::type_reg(TypeData& info) REFL_NOEXCEPT
 		{
 			return TypeRegisterPrivate::register_type(info);
 		}
+
+		void TypeRegister::custom_name(Type& t, StringView name)
+		{
+			TypeRegisterPrivate::register_custom_name(t, name);
+		}
+
 	}
 }

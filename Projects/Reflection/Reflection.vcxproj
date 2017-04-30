@@ -119,6 +119,10 @@
     <ClInclude Include="..\..\Code\Reflection\detail\type\type_data.h" />
     <ClInclude Include="..\..\Code\Reflection\detail\type\type_impl.h" />
     <ClInclude Include="..\..\Code\Reflection\detail\type\type_name.h" />
+    <ClInclude Include="..\..\Code\Reflection\detail\type\type_register.h" />
+    <ClInclude Include="..\..\Code\Reflection\reflection.h" />
+    <ClInclude Include="..\..\Code\Reflection\refl_enable.h" />
+    <ClInclude Include="..\..\Code\Reflection\registration.h" />
     <ClInclude Include="..\..\Code\Reflection\string_view.h" />
     <ClInclude Include="..\..\Code\Reflection\type.h" />
   </ItemGroup>

@@ -44,6 +44,11 @@ namespace Reflection
 			}
 		};
 
+		template<typename T>
+		Type getTypeFromInstance(T* instance)
+		{
+			return Type::get<T>();
+		}
 	}
 
 	REFL_TODO;//why need specfication for void and fun ptr
