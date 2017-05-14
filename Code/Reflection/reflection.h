@@ -4,5 +4,6 @@
 #include "refl_enable.h"
 #include "type.h"
 #include "registration.h"
+#include "refl_cast.h"
 
 #endif

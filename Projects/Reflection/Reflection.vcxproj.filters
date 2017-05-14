@@ -19,6 +19,10 @@
     <ClInclude Include="..\..\Code\Reflection\detail\type\type_register.h">
       <Filter>detail\type</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Code\Reflection\refl_cast.h" />
+    <ClInclude Include="..\..\Code\Reflection\detail\misc\misc_type_traits.h">
+      <Filter>detail\misc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="detail">
@@ -26,6 +30,9 @@
     </Filter>
     <Filter Include="detail\type">
       <UniqueIdentifier>{825a6d5d-fa88-43af-a962-607d967e7e24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="detail\misc">
+      <UniqueIdentifier>{d46dfadc-8e74-4d9b-8e1f-095fbb64ea69}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
