@@ -130,6 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Code\Reflection\detail\type\type_register.cpp" />
+    <ClCompile Include="..\..\Code\Reflection\type.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

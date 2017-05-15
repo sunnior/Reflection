@@ -39,5 +39,6 @@
     <ClCompile Include="..\..\Code\Reflection\detail\type\type_register.cpp">
       <Filter>detail\type</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Code\Reflection\type.cpp" />
   </ItemGroup>
 </Project>

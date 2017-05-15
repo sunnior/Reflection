@@ -1,10 +1,8 @@
 #ifndef __REFL_TYPE_H__
 #define __REFL_TYPE_H__
 
-#include <type_traits>
 #include "defs.h"
 #include "detail/type/type_data.h"
-#include "detail/type/type_register.h"
 
 namespace Reflection
 {
@@ -12,6 +10,7 @@ namespace Reflection
 	{
 		template<typename T, typename Enable = void>
 		struct TypeGetter;
+		class TypeRegisterPrivate;
 	}
 
 	class REFL_API Type
@@ -20,18 +19,29 @@ namespace Reflection
 		REFL_INLINE Type() REFL_NOEXCEPT;
 		REFL_INLINE Type(Detail::TypeData* data) REFL_NOEXCEPT;
 
-		template<typename T>
-		static Type get() REFL_NOEXCEPT;
-		static Type get_by_name(std::string name) REFL_NOEXCEPT;
-
 		REFL_INLINE const Detail::TypeData::type_id get_id() const REFL_NOEXCEPT;
 		REFL_INLINE bool isValid() const REFL_NOEXCEPT;
 
-		friend class Detail::TypeRegisterPrivate;
+	public:
+		template<typename T>
+		REFL_INLINE static Type get() REFL_NOEXCEPT;
+		static Type get_by_name(std::string name) REFL_NOEXCEPT;
+	
+	private:
+		static void* apply_offset(void* ptr, const Type& source_type, const Type& target_type) REFL_NOEXCEPT;
+
 	private:
 		Detail::TypeData* m_Data;
+
+	private:
+		friend Detail::TypeRegisterPrivate;
+		template<typename TargetType, typename SourceType>
+		friend TargetType refl_cast(SourceType object) REFL_NOEXCEPT;
 	};
 }
+
+#include <type_traits>
+#include "detail/type/type_register.h"
 
 namespace Reflection
 {
@@ -72,24 +82,6 @@ namespace Reflection
 		: m_Data(data)
 	{};
 
-	template<typename T>
-	REFL_INLINE Type Type::get() REFL_NOEXCEPT
-	{
-		return Detail::TypeGetter<std::remove_cv_t<std::remove_reference_t<T>>>::getType();
-	}
-
-	REFL_INLINE Type Type::get_by_name(std::string name) REFL_NOEXCEPT
-	{
-		std::map<std::string, Type>& custom_map = Detail::TypeRegisterPrivate::get_type_custom_name_map();
-		auto& it = custom_map.find(name);
-		if (it != custom_map.end())
-		{
-			return it->second;
-		}
-
-		return Detail::get_invalid_type();
-	}
-
 
 	REFL_INLINE const Detail::TypeData::type_id Type::get_id() const REFL_NOEXCEPT
 	{
@@ -99,6 +91,12 @@ namespace Reflection
 	REFL_INLINE bool Type::isValid() const REFL_NOEXCEPT
 	{
 		return m_Data->isValid();
+	}
+
+	template<typename T>
+	REFL_INLINE Type Type::get() REFL_NOEXCEPT
+	{
+		return Detail::TypeGetter<std::remove_cv_t<std::remove_reference_t<T>>>::getType();
 	}
 
 }

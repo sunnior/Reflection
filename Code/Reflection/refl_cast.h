@@ -25,7 +25,7 @@ namespace Reflection
 		REFL_TODO;//volatile, const match.
 		
 		using source_type_no_cv = std::remove_cv_t<std::remove_pointer_t<SourceType>>;
-		return static_cast<TargetType>(object);
+		return static_cast<TargetType>(Type::apply_offset(const_cast<source_type_no_cv*>(object)->getPtr(), const_cast<source_type_no_cv*>(object)->getType(), Type::get<TargetType>()));
 	}
 }
 
