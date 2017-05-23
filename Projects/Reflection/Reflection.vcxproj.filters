@@ -40,5 +40,8 @@
       <Filter>detail\type</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Code\Reflection\type.cpp" />
+    <ClCompile Include="..\..\Code\Reflection\detail\type\type_data.cpp">
+      <Filter>detail\type</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

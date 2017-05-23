@@ -129,6 +129,7 @@
     <ClInclude Include="..\..\Code\Reflection\type.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Code\Reflection\detail\type\type_data.cpp" />
     <ClCompile Include="..\..\Code\Reflection\detail\type\type_register.cpp" />
     <ClCompile Include="..\..\Code\Reflection\type.cpp" />
   </ItemGroup>

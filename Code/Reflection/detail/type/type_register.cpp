@@ -58,6 +58,7 @@ namespace Reflection
 			if (isAlreadyRegistered)
 				return Type(type_data_container[id]);
 
+			info.m_RawTypeData = info.m_RawTypeData->isValid() ? info.m_RawTypeData : &info;
 			type_data_container.push_back(&info);
 
 			return Type(type_data_container[id]);

@@ -4,6 +4,7 @@
 #include <string>
 #include "defs.h"
 #include "type_name.h"
+#include "detail/misc/misc_type_traits.h"
 
 namespace Reflection
 {
@@ -21,26 +22,46 @@ namespace Reflection
 		struct TypeData
 		{
 			using type_id = uint16_t;
+			TypeData* m_RawTypeData;
 			std::string m_Name;
 			StringView  m_TypeName;
 			size_t		m_SizeOf;
-
 			type_id m_TypeId;
 			static const type_id s_InvalidTypeId = 0;
 
 			REFL_INLINE bool isValid() const REFL_NOEXCEPT { return m_TypeId != s_InvalidTypeId; }
 		};
 
-		REFL_INLINE TypeData get_invalid_type_data() REFL_NOEXCEPT
+		template<typename T, bool = std::is_same<T, raw_type_t<T>>::value>
+		struct raw_type_info
 		{
-			static TypeData instance = { std::string(""), StringView(), 0 };
+			static TypeData& GetRawTypeInfo()
+			{
+				return get_invalid_type_data();
+			}
+		};
+		
+		template<typename T>
+		struct raw_type_info<T, false>
+		{
+			static TypeData& GetRawTypeInfo()
+			{
+				return getTypeData<raw_type_t<T>>();
+			}
+		};
+
+		TypeData& get_invalid_type_data_impl() REFL_NOEXCEPT;
+
+		REFL_INLINE TypeData& get_invalid_type_data() REFL_NOEXCEPT
+		{
+			static TypeData& instance = get_invalid_type_data_impl();
 			return instance;
 		}
 
 		template<typename T>
 		TypeData& getTypeData() REFL_NOEXCEPT
 		{
-			static TypeData instance = TypeData{ getTypeName<T>().to_string(), getTypeName<T>(), get_size_of<T>::value()};
+			static TypeData instance = TypeData{ &raw_type_info<T>::GetRawTypeInfo(), getTypeName<T>().to_string(), getTypeName<T>(), get_size_of<T>::value(), TypeData::s_InvalidTypeId };
 			return instance;
 		}
 	}
