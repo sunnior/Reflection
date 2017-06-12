@@ -1,6 +1,12 @@
 #include "type_register.h"
+
+#include <algorithm>
+#include <cassert>
+
 #include "type.h"
 #include "type_data.h"
+#include "type_impl.h"
+
 
 namespace Reflection
 {
@@ -29,7 +35,7 @@ namespace Reflection
 		}
 
 
-		const bool TypeRegisterPrivate::register_name(TypeData::type_id& id, TypeData& info) REFL_NOEXCEPT
+		const bool TypeRegisterPrivate::register_name(type_id& id, TypeData& info) REFL_NOEXCEPT
 		{
 			auto& name_map = get_type_name_map();
 			auto ret = name_map.find(info.m_TypeName);
@@ -39,7 +45,7 @@ namespace Reflection
 				return true;
 			}
 
-			static TypeData::type_id m_type_id_counter = 0;
+			static type_id m_type_id_counter = 0;
 			++m_type_id_counter;
 
 			id = m_type_id_counter;
@@ -50,10 +56,10 @@ namespace Reflection
 		}
 
 
-		Type TypeRegisterPrivate::register_type(TypeData& info) REFL_NOEXCEPT
+		Type TypeRegisterPrivate::register_type_impl(TypeData& info, get_base_calsses_info_func func) REFL_NOEXCEPT
 		{
 			auto& type_data_container = get_type_data_storage();
-			TypeData::type_id id = 0;
+			type_id id = 0;
 			const bool isAlreadyRegistered = register_name(id, info);
 			if (isAlreadyRegistered)
 				return Type(type_data_container[id]);
@@ -61,7 +67,28 @@ namespace Reflection
 			info.m_RawTypeData = info.m_RawTypeData->isValid() ? info.m_RawTypeData : &info;
 			type_data_container.push_back(&info);
 
+			register_base_classes_info(info, func);
+
 			return Type(type_data_container[id]);
+		}
+
+		void TypeRegisterPrivate::register_base_classes_info(TypeData& info, get_base_calsses_info_func func) REFL_NOEXCEPT
+		{
+			BaseClassInfoContainer base_classes_info = func();
+			
+			REFL_TODO; //remove double entries
+			std::sort(base_classes_info.begin(), base_classes_info.end(), [](const BaseClassInfo& left, BaseClassInfo& right) { return left.m_BaseType.get_id() < right.m_BaseType.get_id(); });
+			
+			ClassData& classdata = info.get_class_data_func();
+			for (const auto& t : base_classes_info)
+			{
+				classdata.m_BaseTypes.push_back(t.m_BaseType);
+				classdata.m_cast_funcs.push_back(t.m_ReflCastFunc);
+				
+				REFL_TODO;//I believe these two are equal.
+				assert(t.m_BaseType.m_Data == t.m_BaseType.m_Data->m_RawTypeData);
+				t.m_BaseType.m_Data->get_class_data_func().m_DerivedTypes.push_back(Type(&info));
+			}
 		}
 
 		void TypeRegisterPrivate::register_custom_name(Type& type, StringView name)
@@ -83,9 +110,9 @@ namespace Reflection
 			REFL_TODO;//change raw name.
 		}
 
-		Type TypeRegister::type_reg(TypeData& info) REFL_NOEXCEPT
+		Type TypeRegister::register_type(TypeData& info, get_base_calsses_info_func func) REFL_NOEXCEPT
 		{
-			return TypeRegisterPrivate::register_type(info);
+			return TypeRegisterPrivate::register_type_impl(info, func);
 		}
 
 		void TypeRegister::custom_name(Type& t, StringView name)

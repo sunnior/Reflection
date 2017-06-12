@@ -117,7 +117,9 @@
   <ItemGroup>
     <ClInclude Include="..\..\Code\Reflection\defs.h" />
     <ClInclude Include="..\..\Code\Reflection\detail\misc\misc_type_traits.h" />
+    <ClInclude Include="..\..\Code\Reflection\detail\type\base_classes.h" />
     <ClInclude Include="..\..\Code\Reflection\detail\type\type_data.h" />
+    <ClInclude Include="..\..\Code\Reflection\detail\type\type_id.h" />
     <ClInclude Include="..\..\Code\Reflection\detail\type\type_impl.h" />
     <ClInclude Include="..\..\Code\Reflection\detail\type\type_name.h" />
     <ClInclude Include="..\..\Code\Reflection\detail\type\type_register.h" />

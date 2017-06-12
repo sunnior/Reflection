@@ -1,4 +1,7 @@
 #include "type.h"
+#include "detail/type/type_impl.h"
+#include "detail/type/type_data.h"
+#include <cassert>
 
 namespace Reflection
 {
@@ -16,17 +19,24 @@ namespace Reflection
 
 	void* Type::apply_offset(void* ptr, const Type& source_type, const Type& target_type) REFL_NOEXCEPT
 	{
+		assert(source_type.m_Data->m_RawTypeData == source_type.m_Data);
+		assert(target_type.m_Data->m_RawTypeData == target_type.m_Data);
+
 		if (ptr == nullptr)
 		{
 			return ptr;
 		}
 
-		Detail::TypeData* src_raw_type = source_type.m_Data->m_RawTypeData;
-		Detail::TypeData* tar_raw_type = target_type.m_Data->m_RawTypeData;
-		if (src_raw_type == tar_raw_type)
+		REFL_TODO; //use derived info?
+		
+		Detail::ClassData& classdata = source_type.m_Data->get_class_data_func();
+		for (int i = 0; i < classdata.m_BaseTypes.size(); ++i)
 		{
-			return ptr;
+			if (classdata.m_BaseTypes[i].m_Data == target_type.m_Data)
+			{
+				return classdata.m_cast_funcs[i](ptr);
+			}
 		}
-		return ptr;
+		return nullptr;
 	}
 }

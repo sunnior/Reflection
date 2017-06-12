@@ -3,6 +3,7 @@
 
 #include "refl_enable.h"
 #include "type.h"
+#include "detail/type/type_impl.h"
 #include "registration.h"
 #include "refl_cast.h"
 

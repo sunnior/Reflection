@@ -21,11 +21,12 @@ namespace Reflection
 		REFL_TODO;//has_get_type_func
 
 		using ReturnType = std::remove_pointer_t<TargetType>;
-		using ArgType = std::remove_extent_t<SourceType>;
+		using ArgType = std::remove_pointer_t<SourceType>;
 		REFL_TODO;//volatile, const match.
 		
 		using source_type_no_cv = std::remove_cv_t<std::remove_pointer_t<SourceType>>;
-		return static_cast<TargetType>(Type::apply_offset(const_cast<source_type_no_cv*>(object)->getPtr(), const_cast<source_type_no_cv*>(object)->getType(), Type::get<TargetType>()));
+		using target_type_no_cv = std::remove_cv_t<std::remove_pointer_t<TargetType>>;
+		return static_cast<TargetType>(Type::apply_offset(const_cast<source_type_no_cv*>(object)->getPtr(), const_cast<source_type_no_cv*>(object)->getType(), Type::get<target_type_no_cv>()));
 	}
 }
 

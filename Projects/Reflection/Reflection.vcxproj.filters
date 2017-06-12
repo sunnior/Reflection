@@ -23,6 +23,12 @@
     <ClInclude Include="..\..\Code\Reflection\detail\misc\misc_type_traits.h">
       <Filter>detail\misc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Code\Reflection\detail\type\base_classes.h">
+      <Filter>detail\type</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Code\Reflection\detail\type\type_id.h">
+      <Filter>detail\type</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="detail">
