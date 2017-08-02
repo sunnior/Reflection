@@ -20,11 +20,17 @@ struct T3 : public T2
 struct T4 : public T1, T3
 {
 	REFL_ENABLE(T1, T3);
+public:
+	void print(int a, int b)
+	{
+
+	}
 };
 
 REFL_REGISTRATION
 {
-	Reflection::registration::classReg<T4>("T4");
+	Reflection::Registration::ClassReg<T4>("T4")
+	.method("print", &T4::print);
 }
 
 template<typename T>
