@@ -67,7 +67,7 @@ namespace Reflection
 				static_assert(has_base_class_list<Base>::value, "base class should also have base class list");
 				infos.emplace_back(Type::get<Base>(), &refl_cast_func_impl<Derived, Base>);
 				
-				BaseClassFiller<Derived, Base::base_class_list>::fill(infos);
+				BaseClassFiller<Derived, typename Base::base_class_list>::fill(infos);
 				BaseClassFiller<Derived, U...>::fill(infos);
 			}
 		};

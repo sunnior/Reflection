@@ -32,3 +32,8 @@ Projects/*/Temp/*
 *.lastbuildstate
 *.idb
 *.obj
+
+#Working on mac
+Code/rttr
+Projects/ReflectionMac
+.DS_Store

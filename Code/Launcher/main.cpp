@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Reflection/reflection.h"
+#include "reflection.h"
 
 struct T1
 {
@@ -31,15 +31,6 @@ REFL_REGISTRATION
 {
 	Reflection::Registration::ClassReg<T4>("T4")
 	.method("print", &T4::print);
-}
-
-template<typename T>
-void test(T t);
-
-template<typename T>
-void test<T, std::enable_if_t<std::is_function<std::remove_pointer_t<T>>::value>>(T t)
-{
-	t();
 }
 
 int main()

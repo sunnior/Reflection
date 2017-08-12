@@ -53,6 +53,16 @@ namespace Reflection
 		
 		ClassData& get_invalid_type_class_data() REFL_NOEXCEPT;
 
+        TypeData& get_invalid_type_data_impl() REFL_NOEXCEPT;
+    
+    
+        REFL_INLINE TypeData& get_invalid_type_data() REFL_NOEXCEPT
+        {
+            static TypeData& instance = get_invalid_type_data_impl();
+            return instance;
+        }
+
+    
 		template<typename T, bool = std::is_same<T, raw_type_t<T>>::value>
 		struct raw_type_info
 		{
@@ -61,7 +71,20 @@ namespace Reflection
 				return get_invalid_type_data();
 			}
 		};
-		
+
+        template<typename T>
+        TypeData& getTypeData() REFL_NOEXCEPT
+        {
+            static TypeData instance = TypeData{ &raw_type_info<T>::GetRawTypeInfo(),
+                getTypeName<T>().to_string(),
+                getTypeName<T>(),
+                get_size_of<T>::value(),
+                TypeData::s_InvalidTypeId,
+                &get_type_class_data<T> };
+            return instance;
+        }
+
+
 		template<typename T>
 		struct raw_type_info<T, false>
 		{
@@ -71,25 +94,7 @@ namespace Reflection
 			}
 		};
 
-		TypeData& get_invalid_type_data_impl() REFL_NOEXCEPT;
 
-		REFL_INLINE TypeData& get_invalid_type_data() REFL_NOEXCEPT
-		{
-			static TypeData& instance = get_invalid_type_data_impl();
-			return instance;
-		}
-
-		template<typename T>
-		TypeData& getTypeData() REFL_NOEXCEPT
-		{
-			static TypeData instance = TypeData{ &raw_type_info<T>::GetRawTypeInfo(),
-												 getTypeName<T>().to_string(),
-												 getTypeName<T>(),
-												 get_size_of<T>::value(),
-												 TypeData::s_InvalidTypeId,
-												 &get_type_class_data<T> };
-			return instance;
-		}
 	}
 }
 
